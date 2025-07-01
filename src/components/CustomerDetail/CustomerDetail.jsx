@@ -24,7 +24,7 @@ const CustomerDetail = () => {
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
-  const [includeGST, setIncludeGST] = useState(true);
+  const [includeGST, setIncludeGST] = useState(false);
 
   const [deliveryCharge, setDeliveryCharge] = useState();
   const [discount, setDiscount] = useState(); // New discount state
@@ -443,12 +443,12 @@ const CustomerDetail = () => {
         ref={invoiceRef}
         style={{ display: "none" }}
       >
-        <img src="/logo.jpg" alt="Logo" width={100} className="logo" />
-        <h1 style={{ textAlign: "center", margin: 0, fontSize: "55px" }}>
+        <img src="/logo.jpg" alt="Logo" className="logo" />
+        <h1 style={{ textAlign: "center", margin: 0, fontSize: "35px" }}>
           Chicago Delight's
         </h1>
         <p style={{ textAlign: "center", margin: 0, fontSize: "15px" }}>
-          Oppsite Swarag Agency <br /> Kurukshetra Road <br /> Pehowa(136-128) <br /> 9896642812 90340-62812
+          Oppsite Swarag Agency Kurukshetra <br /> Road Pehowa(136-128) <br /> 9896642812 <br /> 90340-62812
         </p>
         <hr />
         <h2 style={{ textAlign: "center", margin: 0, fontSize: "20px" }}>
@@ -742,7 +742,7 @@ const CustomerDetail = () => {
             <h2>Select Action</h2>
 
              {/* GST toggle */}
-          <label style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+          {/* <label style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
             <input
               type="checkbox"
               checked={includeGST}
@@ -750,7 +750,7 @@ const CustomerDetail = () => {
               style={{ width: '20%' }}
             />
             Include 5% GST
-          </label>
+          </label> */}
 
             <WhatsAppButton
               productsToSend={productsToSend}

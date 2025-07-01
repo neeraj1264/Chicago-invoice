@@ -37,7 +37,7 @@ export default function WhatsAppButton({
 
     // Optional charges
     const serviceText = deliveryCharge
-      ? `Service Charge: ₹${deliveryChargeAmount}`
+      ? `Service Charge: +${deliveryChargeAmount}`
       : "";
     const discountText = parsedDiscount
       ? `Discount: -₹${parsedDiscount}`
@@ -48,7 +48,7 @@ export default function WhatsAppButton({
 
     // Construct message
     let message = encodeURIComponent(
-      `*🍔🍟🍕 Pizza Italia 🍕🍟🍔*\n\n` +
+      `*🍔🍕 Chicago Delight's 🍕🍔*\n\n` +
         `Order: *${orderId}*` +
         (customerName ? `\nName: *${customerName}*` : "") +
         (customerPhone ? `\nPhone: *${customerPhone}*` : "") +
