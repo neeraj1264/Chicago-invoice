@@ -245,7 +245,6 @@ const History = () => {
                 onTouchStart={handlePressStart}
                 onTouchEnd={handlePressEnd}
               >
-                <hr />
                 <div
                   onClick={() => toggleOrder(order.id)}
                   className="order-lable"
@@ -254,6 +253,10 @@ const History = () => {
                     Order {filteredOrders.length - index} -{" "}
                     <span>{formatDate(order.timestamp)}</span>
                   </h2>
+                  <div>
+      <span className="badge bill-badge">Bill.no #{order.billNumber}</span>
+      <span className="badge order-badge">Order.id RT_{order.orderNumber}</span>
+                  </div>
                   <div
                     style={{
                       display: "flex",
