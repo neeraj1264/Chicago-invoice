@@ -20,6 +20,8 @@ const History = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false); // Track modal visibility
   const [modalMessage, setModalMessage] = useState(""); // Modal message
+  const [totalCash, setTotalCash] = useState(0);
+  const [totalUpi, setTotalUpi] = useState(0);
 
   // Show remove button on long press
   let pressTimer;
@@ -93,12 +95,23 @@ const History = () => {
 
         setFilteredOrders(dayOrders);
 
-        // Calculate grand total for the day
+              // Calculate grand total for the day
         const total = dayOrders.reduce(
           (sum, order) => sum + order.totalAmount,
           0
         );
         setGrandTotal(total);
+         const cashTotal = dayOrders.reduce(
+          (sum, o) => sum + (o.cashAmount || 0),
+          0
+        );
+        const upiTotal = dayOrders.reduce(
+          (sum, o) => sum + (o.upiAmount || 0),
+          0
+        );
+
+        setTotalCash(cashTotal);
+        setTotalUpi(upiTotal);
       } catch (error) {
         console.error("Error fetching orders:", error.message);
       } finally {
@@ -233,6 +246,22 @@ const History = () => {
                 ))}
               </select>
             </h2>
+
+               <div className="payment-totals">
+                <div className="cash-box">
+                  <h3>
+                    Cash:
+                    <span>₹{totalCash}</span>
+                  </h3>
+                </div>
+                <div className="upi-box">
+                  <h3>
+                    Upi:
+                    <span>₹{totalUpi}</span>
+                  </h3>
+                </div>
+              </div>
+
           </div>
 
           {filteredOrders.length > 0 ? (
@@ -341,33 +370,38 @@ const History = () => {
                         </tr>
                       )}
 
+    {(order.cashAmount || order.upiAmount) && (
+                        <>
+                          {order.cashAmount > 0 && (
+                            <tr>
+                              <td colSpan={2} style={{ textAlign: "right" }}>
+                                <strong>Cash Paid:</strong>
+                              </td>
+                              <td colSpan={2}style={{ textAlign: "right" }}>
+                                <strong>
+                                  ₹{Number(order.cashAmount).toFixed(2)}
+                                </strong>
+                              </td>
+                            </tr>
+                          )}
+                          {order.upiAmount > 0 && (
+                            <tr>
+                              <td colSpan={2} style={{ textAlign: "right" }}>
+                                <strong>UPI Paid:</strong>
+                              </td>
+                              <td style={{ textAlign: "right" }}>
+                                <strong>
+                                  ₹{Number(order.upiAmount).toFixed(2)}
+                                </strong>
+                              </td>
+                            </tr>
+                          )}
+                        </>
+                      )}
+                      
                       {/* ICONS ROW */}
-                      <tr>
+                      {/* <tr>
                         <td colSpan={4} style={{ textAlign: "center" }}>
-                          {/* <RawBTPrintButton
-                            productsToSend={order.products}
-                            customerPhone={order.phone}
-                            deliveryChargeAmount={order.delivery}
-                            parsedDiscount={order.discount}
-                            timestamp={order.timestamp}
-                            icon={() => (
-                              <FaPrint
-                                size={32}
-                                style={{
-                                  color: "#1abc9c",
-                                  transition: "transform 0.1s ease",
-                                  textAlign: "center"
-                                }}
-                                onMouseEnter={(e) =>
-                                  (e.currentTarget.style.transform =
-                                    "scale(1.2)")
-                                }
-                                onMouseLeave={(e) =>
-                                  (e.currentTarget.style.transform = "scale(1)")
-                                }
-                              />
-                            )}
-                          /> */}
                           <Rawbt3Inch
                             productsToSend={order.products}
                             customerPhone={order.phone}
@@ -396,7 +430,7 @@ const History = () => {
                             )}
                           />
                         </td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                 )}
